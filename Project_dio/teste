@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Array para armazenar os grupos criados apenas por usuários
+#grupos_usuarios=()
+
+# Obtém todos os grupos do sistema
+#todos_grupos=$(cut -d: -f1 /etc/group)
+
+# Loop através de todos os grupos
+#for grupo in $todos_grupos; do
+    # Obtém o ID do grupo
+#    grupo_id=$(grep "^$grupo:" /etc/group | cut -d: -f3)
+    
+    # Verifica se o ID do grupo é maior ou igual a 1000 (comumente usado para grupos de usuários)
+#    if [ "$grupo_id" -ge 1000 ]; then
+        # Adiciona o grupo ao array
+#        grupos_usuarios+=("$grupo")
+#    fi
+#done
+
+# Imprime os grupos criados apenas por usuários
+#echo "Grupos criados apenas por usuários:"
+#echo "${grupos_usuarios[@]}"
+
+
+current_groups=()
+
+all_grups=$(cut -d: -f1 /etc/group)
+
+# Loop através de todos os grupos
+for group in $all_grups; do
+    # Obtém o ID do grupo
+    group_id=$(grep "^$group:" /etc/group | cut -d: -f3)
+
+    # Verifica se o ID do grupo é maior ou igual a 1000 (comumente usado para grupos de usuários)
+    if [ "$group_id" -ge 1000 ]; then
+        current_groups+=("$group")
+    fi
+done
+
+echo "${current_groups[@]}"
